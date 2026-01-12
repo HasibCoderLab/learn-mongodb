@@ -4,7 +4,7 @@ const app = express();
 const port = 8000;
 
 const mongoURL =
-  "mongodb+srv://codermohammadhasibhasan_db_user:ANmSg1GmMnaKoCci@cluster0.inxzqhm.mongodb.net/coderhasib?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://codermohammadhasibhasan_db_user:Gdkt9eiVCfPKIGI1@cluster0.zelxsxr.mongodb.net/learn";
 
 const connectDB = async () => {
   try {
