@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import User from "./models/user.model.js";
+app.use(express.json())
 const app = express();
 const port = 8000;
 
@@ -22,15 +23,21 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/", async (req,res)  => {
- try {
-   let  { name, age ,  email,userName } = req.body
-User
- } catch () {
-  
- }
+app.post("/", async (req, res) => {
+  try {
+    let { name, age, email, userName } = req.body
+   const newUser = await  User.create({
+      name,
+      age,
+      email,
+      userName
+    });
+    res.status(201).json({message:"Usre Created"})
+  } catch (error) {
+return res.status(400).json({message:error})
+  }
 });
- 
+
 
 app.listen(port, () => {
   connectDB();
