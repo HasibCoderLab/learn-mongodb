@@ -124,15 +124,31 @@ app.get( "/read",  async( req,res) =>{
 
 //  ============== CRUD (D) => Delete  ============
 
-app.delete("/delete/:id", async (req,res) =>{
+// app.delete("/delete/:id", async (req,res) =>{
+// try {
+//   let id = req.params.id;
+//   let user = await User.findByIdAndDelete(id);
+//   return res.status(200).json(user);
+// } catch (error) {
+//    return  res.status(200).json({message:"user not found"})
+// }
+// });
+
+//   ===============  deleteOne ========
+
+//  ============== CRUD (D) => Delete  ============
+
+app.delete("/delete", async (req,res) =>{
 try {
-  let id = req.params.id;
-  let user = await User.findByIdAndDelete(id);
+  let {userName} = req.body;
+  let user = await User.deleteOne({userName});
   return res.status(200).json(user);
 } catch (error) {
    return  res.status(200).json({message:"user not found"})
 }
-});
+})
+
+
 
 app.listen(port, () => {
   connectDB();
