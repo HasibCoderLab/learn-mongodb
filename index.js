@@ -41,15 +41,15 @@ return res.status(400).json({message:error})
 
 // ====== Get Route ======
 
-// app.get( "/read",  async( req,res) =>{
-//    try {
-//     const users = await User.find();
-//       return  res.status(200).json(users)
-//    } catch (error) {
-//      return  res.status(200).json({message:"user not found"})
+app.get( "/read",  async( req,res) =>{
+   try {
+    const users = await User.find();
+      return  res.status(200).json(users)
+   } catch (error) {
+     return  res.status(200).json({message:"user not found"})
   
-//    }
-// });
+   }
+});
 
 // // ====== Condition Route ======
 
@@ -65,40 +65,40 @@ return res.status(400).json({message:error})
 
 // ====== logical operatots  ======
 
-app.get( "/read",  async( req,res) =>{
-   try {
-    const users = await User.find({$and : [{age:{$gt:18}},{name:{$eq :"Hasib"}} ]});
-      return  res.status(200).json(users)
-   } catch (error) {
-     return  res.status(200). json({message:"user not found"})
+// app.get( "/read",  async( req,res) =>{
+//    try {
+//     const users = await User.find({$and : [{age:{$gt:18}},{name:{$eq :"Hasib"}} ]});
+//       return  res.status(200).json(users)
+//    } catch (error) {
+//      return  res.status(200). json({message:"user not found"})
   
-   }
-});
+//    }
+// });
 
 
 
 // ====== Get Route  find User Name ======
 
-app.get( "/read/:userName",  async( req,res) =>{
-   try {
-    const users = await User.findOne({userName:req.params.userName});
-      return  res.status(200).json(users)
-   } catch (error) {
-     return  res.status(200).json({message:"user not found"})
+// app.get( "/read/:userName",  async( req,res) =>{
+//    try {
+//     const users = await User.findOne({userName:req.params.userName});
+//       return  res.status(200).json(users)
+//    } catch (error) {
+//      return  res.status(200).json({message:"user not found"})
   
-   }
-});
+//    }
+// });
  
 
 
 //  =============  Learn CRUD  U => {Update} ========= 
 
-app.put( "/update/:id ",  async( req,res) =>{
+app.put( "/update/:id", async( req,res) =>{
 
  try {
   let {name} = req.body;
   let id = req.params.id;
-  let user =  await User.findByIdAndUpdate(id,{name})
+  let user =  await User.findByIdAndUpdate(id,{name},{new:true})
   return res.status(200).json(user)
  } catch (error) {
      return  res.status(200).json({message:"user not found"})
