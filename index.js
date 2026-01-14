@@ -27,28 +27,28 @@ app.get("/", (req, res) => {
 app.post("/create", async (req, res) => {
   try {
     let { name, age, email, userName } = req.body
-   const newUser = await  User.create({
+    const newUser = await User.create({
       name,
       age,
       email,
       userName
     });
-    res.status(201).json({message:"Usre Created"})
+    res.status(201).json({ message: "Usre Created" })
   } catch (error) {
-return res.status(400).json({message:error})
+    return res.status(400).json({ message: error })
   }
 });
 
 // ====== Get Route ======
 
-app.get( "/read",  async( req,res) =>{
-   try {
+app.get("/read", async (req, res) => {
+  try {
     const users = await User.find();
-      return  res.status(200).json(users)
-   } catch (error) {
-     return  res.status(200).json({message:"user not found"})
-  
-   }
+    return res.status(200).json(users)
+  } catch (error) {
+    return res.status(200).json({ message: "user not found" })
+
+  }
 });
 
 // // ====== Condition Route ======
@@ -59,7 +59,7 @@ app.get( "/read",  async( req,res) =>{
 //       return  res.status(200).json(users)
 //    } catch (error) {
 //      return  res.status(200).json({message:"user not found"})
-  
+
 //    }
 // });
 
@@ -71,7 +71,7 @@ app.get( "/read",  async( req,res) =>{
 //       return  res.status(200).json(users)
 //    } catch (error) {
 //      return  res.status(200). json({message:"user not found"})
-  
+
 //    }
 // });
 
@@ -85,10 +85,10 @@ app.get( "/read",  async( req,res) =>{
 //       return  res.status(200).json(users)
 //    } catch (error) {
 //      return  res.status(200).json({message:"user not found"})
-  
+
 //    }
 // });
- 
+
 
 
 //  =============  Learn CRUD  U => {Update} ========= 
@@ -102,7 +102,7 @@ app.get( "/read",  async( req,res) =>{
 //   return res.status(200).json(user)
 //  } catch (error) {
 //      return  res.status(200).json({message:"user not found"})
-  
+
 //  }
 // });
 
@@ -118,7 +118,7 @@ app.get( "/read",  async( req,res) =>{
 //   return res.status(200).json({message:"User Updated"})
 //  } catch (error) {
 //      return  res.status(200).json({message:"user not found"});
-  
+
 //  }
 // });
 
@@ -138,14 +138,14 @@ app.get( "/read",  async( req,res) =>{
 
 //  ============== CRUD (D) => Delete  ============
 
-app.delete("/delete", async (req,res) =>{
-try {
-  let {userName} = req.body;
-  let user = await User.deleteOne({userName});
-  return res.status(200).json(user);
-} catch (error) {
-   return  res.status(200).json({message:"user not found"})
-}
+app.delete("/delete", async (req, res) => {
+  try {
+    let { userName } = req.body;
+    let user = await User.deleteOne({ userName });
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(200).json({ message: "user not found" })
+  }
 })
 
 
