@@ -51,17 +51,29 @@ return res.status(400).json({message:error})
 //    }
 // });
 
-// ====== Condition Route ======
+// // ====== Condition Route ======
+
+// app.get( "/read",  async( req,res) =>{
+//    try {
+//     const users = await User.find({age :{$lt:19}});
+//       return  res.status(200).json(users)
+//    } catch (error) {
+//      return  res.status(200).json({message:"user not found"})
+  
+//    }
+// });
+
+// ====== logical operatots  ======
 
 app.get( "/read",  async( req,res) =>{
    try {
-    const users = await User.find({age :{$lt:19}});
+    const users = await User.find({$and : [{age:{$gt:18}},{name:{$eq:"Hasib"}} ]});
       return  res.status(200).json(users)
    } catch (error) {
      return  res.status(200).json({message:"user not found"})
   
    }
-});
+})
 
 
 // ====== Get Route  find User Name ======
