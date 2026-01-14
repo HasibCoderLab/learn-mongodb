@@ -96,9 +96,9 @@ app.get( "/read",  async( req,res) =>{
 app.put( "/update/:id", async( req,res) =>{
 
  try {
-  let {name} = req.body;
+  let {name,age} = req.body;
   let id = req.params.id;
-  let user =  await User.findByIdAndUpdate(id,{name},{new:true})
+  let user =  await User.findByIdAndUpdate(id,{name,age},{new:true})
   return res.status(200).json(user)
  } catch (error) {
      return  res.status(200).json({message:"user not found"})
