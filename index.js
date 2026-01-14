@@ -1,12 +1,13 @@
 import express from "express"
 import mongoose from "mongoose"
 import User from "./models/user.model.js";
-app.use(express.json())
 const app = express();
 const port = 8000;
 
+app.use(express.json());
+
 const mongoURL =
-  "mongodb+srv://codermohammadhasibhasan_db_user:Gdkt9eiVCfPKIGI1@cluster0.zelxsxr.mongodb.net/learn";
+  "mongodb+srv://mohammodhasibhasan_db_user:sdzYQTnDqVCMBsLZ@cluster0.xh5qyek.mongodb.net/learnDB";
 
 const connectDB = async () => {
   try {
@@ -23,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/", async (req, res) => {
+app.post("/create", async (req, res) => {
   try {
     let { name, age, email, userName } = req.body
    const newUser = await  User.create({
