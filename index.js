@@ -1,148 +1,17 @@
 import express from "express"
-import mongoose from "mongoose"
 import dotenv from "dotenv"
 dotenv.config()
 import User from "./models/user.model.js";
+import connectDB from "./config/db.js";
 const app = express();
 const port = 8000;
 
 app.use(express.json());
-
-
-
-
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
-
-// ====== Post Route ======
-app.post("/create", async (req, res) => {
-  try {
-    let { name, age, email, userName } = req.body
-    const newUser = await User.create({
-      name,
-      age,
-      email,
-      userName
-    });
-    res.status(201).json({ message: "Usre Created" })
-  } catch (error) {
-    return res.status(400).json({ message: error })
-  }
-});
-
-// ====== Get Route ======
-
-app.get("/read", async (req, res) => {
-  try {
-    const users = await User.find();
-    return res.status(200).json(users)
-  } catch (error) {
-    return res.status(200).json({ message: "user not found" })
-
-  }
-});
-
-// // ====== Condition Route ======
-
-// app.get( "/read",  async( req,res) =>{
-//    try {
-//     const users = await User.find({age :{$lt:19}});
-//       return  res.status(200).json(users)
-//    } catch (error) {
-//      return  res.status(200).json({message:"user not found"})
-
-//    }
-// });
-
-// ====== logical operatots  ======
-
-// app.get( "/read",  async( req,res) =>{
-//    try {
-//     const users = await User.find({$and : [{age:{$gt:18}},{name:{$eq :"Hasib"}} ]});
-//       return  res.status(200).json(users)
-//    } catch (error) {
-//      return  res.status(200). json({message:"user not found"})
-
-//    }
-// });
-
-
-
-// ====== Get Route  find User Name ======
-
-// app.get( "/read/:userName",  async( req,res) =>{
-//    try {
-//     const users = await User.findOne({userName:req.params.userName});
-//       return  res.status(200).json(users)
-//    } catch (error) {
-//      return  res.status(200).json({message:"user not found"})
-
-//    }
-// });
-
-
-
-//  =============  Learn CRUD  U => {Update} ========= 
-
-// app.put( "/update/:id", async( req,res) =>{
-
-//  try {
-//   let {name,age} = req.body;
-//   let id = req.params.id;
-//   let user =  await User.findByIdAndUpdate(id,{name,age},{new:true})
-//   return res.status(200).json(user)
-//  } catch (error) {
-//      return  res.status(200).json({message:"user not found"})
-
-//  }
-// });
-
-
-//  ============== CRUD (U) => Update ============
-
-
-// app.put( "/update", async( req,res) =>{
-
-//  try {
-//   let {name,age,email} = req.body;
-//   let user =  await User.updateOne({email},{name,age},{new:true})
-//   return res.status(200).json({message:"User Updated"})
-//  } catch (error) {
-//      return  res.status(200).json({message:"user not found"});
-
-//  }
-// });
-
-//  ============== CRUD (D) => Delete  ============
-
-// app.delete("/delete/:id", async (req,res) =>{
-// try {
-//   let id = req.params.id;
-//   let user = await User.findByIdAndDelete(id);
-//   return res.status(200).json(user);
-// } catch (error) {
-//    return  res.status(200).json({message:"user not found"})
-// }
-// });
-
-//   ===============  deleteOne ========
-
-//  ============== CRUD (D) => Delete  ============
-
-app.delete("/delete", async (req, res) => {
-  try {
-    let { userName } = req.body;
-    let user = await User.deleteOne({ userName });
-    return res.status(200).json(user);
-  } catch (error) {
-    return res.status(200).json({ message: "user not found" })
-  }
-})
+app.use("/",userRouter)
 
 
 
 app.listen(port, () => {
-  connectDB();
+  connectDB()
   console.log(`started at ${port}`);
 });
