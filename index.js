@@ -110,16 +110,28 @@ app.get( "/read",  async( req,res) =>{
 //  ============== CRUD (U) => Update ============
 
 
-app.put( "/update", async( req,res) =>{
+// app.put( "/update", async( req,res) =>{
 
- try {
-  let {name,age,email} = req.body;
-  let user =  await User.updateOne({email},{name,age},{new:true})
-  return res.status(200).json({message:"User Updated"})
- } catch (error) {
-     return  res.status(200).json({message:"user not found"})
+//  try {
+//   let {name,age,email} = req.body;
+//   let user =  await User.updateOne({email},{name,age},{new:true})
+//   return res.status(200).json({message:"User Updated"})
+//  } catch (error) {
+//      return  res.status(200).json({message:"user not found"});
   
- }
+//  }
+// });
+
+//  ============== CRUD (D) => Delete  ============
+
+app.delete("/delete/:id", async (req,res) =>{
+try {
+  let id = req.params.id;
+  let user = await User.findByIdAndDelete(id);
+  return res.status(200).json(user);
+} catch (error) {
+   return  res.status(200).json({message:"user not found"})
+}
 });
 
 app.listen(port, () => {
