@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("Hello");
 });
 
-
+// ====== Post Route ======
 app.post("/create", async (req, res) => {
   try {
     let { name, age, email, userName } = req.body
@@ -39,7 +39,29 @@ return res.status(400).json({message:error})
   }
 });
 
+// ====== Get Route ======
 
+app.get( "/read",  async( req,res) =>{
+   try {
+    const users = await User.find();
+      return  res.status(200).json(users)
+   } catch (error) {
+     return  res.status(200).json({message:"user not found"})
+  
+   }
+});
+// ====== Get Route  find User Name ======
+
+app.get( "/read:userName",  async( req,res) =>{
+   try {
+    const users = await User.findOne({});
+      return  res.status(200).json(users)
+   } catch (error) {
+     return  res.status(200).json({message:"user not found"})
+  
+   }
+});
+ 
 app.listen(port, () => {
   connectDB();
   console.log(`started at ${port}`);
