@@ -93,13 +93,29 @@ app.get( "/read",  async( req,res) =>{
 
 //  =============  Learn CRUD  U => {Update} ========= 
 
-app.put( "/update/:id", async( req,res) =>{
+// app.put( "/update/:id", async( req,res) =>{
+
+//  try {
+//   let {name,age} = req.body;
+//   let id = req.params.id;
+//   let user =  await User.findByIdAndUpdate(id,{name,age},{new:true})
+//   return res.status(200).json(user)
+//  } catch (error) {
+//      return  res.status(200).json({message:"user not found"})
+  
+//  }
+// });
+
+
+//  ============== CRUD (U) => Update ============
+
+
+app.put( "/update", async( req,res) =>{
 
  try {
-  let {name,age} = req.body;
-  let id = req.params.id;
-  let user =  await User.findByIdAndUpdate(id,{name,age},{new:true})
-  return res.status(200).json(user)
+  let {name,age,email} = req.body;
+  let user =  await User.updateOne({email},{name,age},{new:true})
+  return res.status(200).json({message:"User Updated"})
  } catch (error) {
      return  res.status(200).json({message:"user not found"})
   
