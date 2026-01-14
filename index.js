@@ -52,9 +52,9 @@ app.get( "/read",  async( req,res) =>{
 });
 // ====== Get Route  find User Name ======
 
-app.get( "/read:userName",  async( req,res) =>{
+app.get( "/read/:userName",  async( req,res) =>{
    try {
-    const users = await User.findOne({});
+    const users = await User.findOne({userName:req.params.userName});
       return  res.status(200).json(users)
    } catch (error) {
      return  res.status(200).json({message:"user not found"})
