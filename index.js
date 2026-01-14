@@ -41,15 +41,29 @@ return res.status(400).json({message:error})
 
 // ====== Get Route ======
 
+// app.get( "/read",  async( req,res) =>{
+//    try {
+//     const users = await User.find();
+//       return  res.status(200).json(users)
+//    } catch (error) {
+//      return  res.status(200).json({message:"user not found"})
+  
+//    }
+// });
+
+// ====== Condition Route ======
+
 app.get( "/read",  async( req,res) =>{
    try {
-    const users = await User.find();
+    const users = await User.find({name :{$ne:"Hasib"}});
       return  res.status(200).json(users)
    } catch (error) {
      return  res.status(200).json({message:"user not found"})
   
    }
 });
+
+
 // ====== Get Route  find User Name ======
 
 app.get( "/read/:userName",  async( req,res) =>{
