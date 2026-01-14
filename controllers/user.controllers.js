@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 export const home =  (req, res) => {
   res.send("Hello");
@@ -31,18 +31,44 @@ export const read =  async (req, res) => {
  
   }
 }
-//  Read By userName
+
+//  ============= readBy condition ======
+export const  readBycondition =   async( req,res) =>{
+   try {
+    const users = await User.find({age :{$lt:19}});
+      return  res.status(200).json(users)
+   } catch (error) {
+     return  res.status(200).json({message:"user not found"})
+
+   }
+}
+
+
+// ============= Read with Logic ========
+export const ReadByLogic =  async( req,res) =>{
+   try {
+    const users = await User.find({$and : [{age:{$gt:18}},{name:{$eq :"Hasib"}} ]});
+      return  res.status(200).json(users)
+   } catch (error) {
+     return  res.status(200). json({message:"user not found"})
+
+   }
+}
+
+// ==================== Read By userName===============
 export const readByUserName =  async (req,res) =>{
   try {
     const users = await User.findOne({userName:req.params.userName});
     return res.status(200).json(users)
-  } catch (error) {
-    
-  }
+  } 
+  catch (error) {
+  return res.status(404).json({ message: "user not found" });
+}
+
 }
 
 
-// =========   =============
+// ========= UpdateBy Email  =============
 
 export  const  update  = async( req,res) =>{
 
@@ -58,7 +84,7 @@ export  const  update  = async( req,res) =>{
 
 // 
 
-// ========= Update By user
+// ========= Update By ID ============
 
  export const UpdateByuser =  async( req,res) =>{
 
@@ -73,19 +99,7 @@ export  const  update  = async( req,res) =>{
  }
 }
 
-// ======= delete by UserName =====
-
-export const deleteByUserName = async (req,res) =>{
-try {
-  let id = req.params.id;
-  let user = await User.findByIdAndDelete(id);
-  return res.status(200).json(user);
-} catch (error) {
-   return  res.status(200).json({message:"user not found"})
-}
-}
-
-//  Delete
+// ============  Delete ==== 
 export const deletefun = async (req, res) => {
   try {
     let { userName } = req.body;
@@ -94,4 +108,16 @@ export const deletefun = async (req, res) => {
   } catch (error) {
     return res.status(200).json({ message: "user not found" })
   }
+}
+
+// ======= delete By ID =====
+
+export const deleteById = async (req,res) =>{
+try {
+  let id = req.params.id;
+  let user = await User.findByIdAndDelete(id);
+  return res.status(200).json(user);
+} catch (error) {
+   return  res.status(200).json({message:"user not found"})
+}
 }
